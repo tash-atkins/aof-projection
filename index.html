@@ -84,14 +84,6 @@
     max-width: var(--stage-width, 33vw);
   }
 
-  .credit {
-    font-size: clamp(1.5rem, 1.35vw, 1.5rem);
-    font-weight: var(--label-weight);
-    letter-spacing: var(--label-letter-spacing);
-    text-transform: uppercase;
-    opacity: 0.9;
-  }
-
   /* ============================================================
      BACKGROUND GRAPHIC
      Sized to your exported hearts-bg.png's own natural aspect
@@ -137,13 +129,6 @@
     animation: bump 0.6s ease;
   }
 
-  .headline {
-    font-size: clamp(1.2rem, 2.4vw, 2.4rem);
-    font-weight: var(--label-weight);
-    letter-spacing: var(--label-letter-spacing);
-    text-transform: uppercase;
-  }
-
   .status {
     position: fixed;
     bottom: 1vh;
@@ -168,16 +153,12 @@
 <body>
 
   <div class="stage">
-    <div class="credit" id="credit-line">Courtesy of Sherele Moody, Australian Femicide Watch</div>
-
     <div class="heart-field">
       <img src="hearts-bg.png?v=1" alt="" id="hearts-bg">
       <div class="number-overlay">
         <div class="count" id="count-number">—</div>
       </div>
     </div>
-
-    <div class="headline" id="headline-text">Australian Women Killed in 2026</div>
   </div>
 
 <script>
