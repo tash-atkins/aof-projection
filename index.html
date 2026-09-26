@@ -4,47 +4,13 @@
 <meta charset="UTF-8">
 <title>Toll of Violence — Live Projection</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--
-  LICENSED FONT SETUP
-  Using the original .otf files directly — for a single-use page
-  like this (one laptop, one show), the woff/woff2 conversion isn't
-  necessary. It mainly helps with load speed on public sites with
-  many visitors, which doesn't apply here.
--->
-<style>
-  @font-face {
-    font-family: 'Gill Sans Web';
-    src: url('fonts/GillSans-Light.otf') format('opentype');
-    font-weight: 300;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Gill Sans Web';
-    src: url('fonts/GillSans-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-display: swap;
-  }
-</style>
 <style>
   /* ============================================================
-     DESIGNER CONFIG — everything visual lives here.
-     No JavaScript knowledge needed to restyle this page.
+     DESIGNER CONFIG
      ============================================================ */
   :root {
     --bg: #0d0203;                 /* page background */
-    --heart-color: #7a1f28;        /* colour of the background hearts (CSS-pattern mode only, unused once hearts-bg.png is in place) */
-    --heart-opacity: 0.75;
-    --heart-size: 64px;
-    --heart-gap: 18px;
-    --text-color: #ffffff;
-    --font-label: 'Gill Sans Web', 'Jost', sans-serif;
-    --font-number: 'Gill Sans Web', 'Jost', sans-serif;
-    --label-weight: 300;
-    --number-weight: 700;
-    --label-letter-spacing: 0.02em;
-    --stage-width: 50vw;           /* how much of the screen width the whole composition occupies */
-    --number-x-offset: 0px;        /* nudge the number left (negative) or right (positive) */
-    --number-y-offset: 30px;        /* nudge the number up (negative) or down (positive) */
+    --stage-width: 50vw;           /* how much of the screen width the image occupies */
   }
 </style>
 <style>
@@ -62,115 +28,37 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    font-family: var(--font-label);
-    color: var(--text-color);
-    text-align: center;
     padding: 4vh 4vw;
   }
 
   /* ============================================================
-     STAGE CONTAINER
-     Caps the whole composition (credit line, graphic, headline)
-     to roughly a third of the screen width, centered. Change
-     --stage-width below to make it larger or smaller.
-     ============================================================ */
-  .stage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5vh;
-    width: var(--stage-width, 33vw);
-    max-width: var(--stage-width, 33vw);
-  }
+     TOLL IMAGE
+     This is the entire design now — number, hearts, and outline
+     are all baked into one exported image from Canva.
 
-  /* ============================================================
-     BACKGROUND GRAPHIC
-     Sized to your exported hearts-bg.png's own natural aspect
-     ratio — whatever dimensions you export, the number overlay
-     automatically centers over it with no stretching or cropping.
-     To update the graphic: export a new hearts-bg.png (see chat
-     for export settings) and replace the file of the same name.
-     No code edits needed.
+     TO UPDATE THE NUMBER:
+     1. Update the number in your Canva design and export it as a
+        PNG (transparent background, same export settings as before:
+        PNG-24, RGB/sRGB, ~2400–3200px wide).
+     2. Replace toll-image.png in this same folder with the new
+        export, keeping the exact same filename.
+     3. Bump the ?v=1 below to ?v=2 (then ?v=3, etc. next time) —
+        this forces the browser to load the new image instead of
+        showing a cached older one.
+     4. Commit and push as usual (or hand this whole step to
+        whoever is doing the GitHub side).
      ============================================================ */
-  .heart-field {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .heart-field img {
+  .toll-image {
     display: block;
-    width: 100%;
+    width: var(--stage-width, 50vw);
+    max-width: 90vw;
     height: auto;
-  }
-
-  .number-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .count {
-    font-family: var(--font-number);
-    font-weight: var(--number-weight);
-    font-size: clamp(4.5rem, 13.5vw, 13.5rem);
-    line-height: 1;
-    color: var(--text-color);
-    font-variant-numeric: tabular-nums;
-    transform: translate(var(--number-x-offset), var(--number-y-offset));
-  }
-
-  .count.bump {
-    animation: bump 0.6s ease;
-  }
-
-  .status {
-    position: fixed;
-    bottom: 1vh;
-    right: 1.2vw;
-    font-size: 0.65rem;
-    color: #ffffff26;
-    font-family: monospace;
-    letter-spacing: 0.05em;
-  }
-
-  @keyframes bump {
-    0% { transform: scale(1); }
-    30% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .count.bump { animation: none; }
   }
 </style>
 </head>
 <body>
 
-  <div class="stage">
-    <div class="heart-field">
-      <img src="hearts-bg.png?v=1" alt="" id="hearts-bg">
-      <div class="number-overlay">
-        <div class="count" id="count-number">—</div>
-      </div>
-    </div>
-  </div>
+  <img class="toll-image" src="toll-image.png?v=1" alt="Toll of violence" id="toll-image">
 
-<script>
-/* ============================================================
-   UPDATE THE NUMBER HERE
-   Change TOLL_COUNT to the current figure, save the file, and
-   push/upload it. That's the entire update process — no sheet,
-   no fetching, nothing else to touch.
-   ============================================================ */
-const TOLL_COUNT = 52;
-
-document.getElementById("count-number").textContent = TOLL_COUNT;
-</script>
 </body>
 </html>
